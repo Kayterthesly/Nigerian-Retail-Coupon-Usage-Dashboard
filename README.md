@@ -1,34 +1,43 @@
-📘 Nigerian Retail Coupon Usage Dashboard
-Interactive Business Intelligence Report for Campaign Optimization and Customer Engagement
+# 📘 Nigerian Retail Coupon Usage Dashboard  
+**Interactive Business Intelligence Report for Campaign Optimization and Customer Engagement**
 
-🧩 Business Problem
+---
+
+## 🧩 Business Problem
+
 In Nigeria’s competitive retail and e-commerce landscape, brands run aggressive coupon campaigns to boost sales, attract new customers, and retain loyal ones. However, many campaigns fail to deliver ROI due to poor targeting, ineffective channels, and low redemption rates.
 
-As a data analyst, I set out to answer: Which campaigns, channels, and discount types actually drive customer engagement and redemption? This dashboard helps marketing teams optimize future campaigns using data-driven insights.
+As a data analyst, I set out to answer:  
+**Which campaigns, channels, and discount types actually drive customer engagement and redemption?**  
+This dashboard helps marketing teams optimize future campaigns using data-driven insights.
 
-📊 Project Overview
-Industry: Retail & E-Commerce (Nigeria)
+---
 
-Dataset: Coupon and Discount Usage Data (200,000 rows, 10 columns)
+## 📊 Project Overview
 
-Tools: Python, Excel (Power Query), MySQL, Power BI, GitHub
+- **Industry**: Retail & E-Commerce (Nigeria)  
+- **Dataset**: Coupon and Discount Usage Data (200,000 rows, 10 columns)  
+- **Tools**: Python, Excel (Power Query), MySQL, Power BI, GitHub  
+- **Workflow Enhancement**: AI Prompting for faster, more precise scripting and query generation  
+- **Analytics Type**: Descriptive, Diagnostic, Exploratory  
+  *(Predictive modeling planned in next phase with Python )*
 
-Analytics Type: Descriptive, Diagnostic, Exploratory (Predictive modeling planned in next phase)
+---
 
-📁 Dataset Source & Structure
-Source: Electric Sheep Africa on Hugging Face
+## 📁 Dataset Source & Structure
 
-License: GPL (safe for public use)
+- **Source**: [Electric Sheep Africa on Hugging Face](https://huggingface.co/datasets/electricsheepafrica/nigerian-retail-coupon-and-discount-usage-data)  
+- **License**: GPL (safe for public use)  
+- **Format**: CSV & Parquet  
+- **Schema**:
+  - `coupon_id`, `customer_id`, `coupon_code`, `discounttype`, `discount_value`, `usage_date`, `order_id`, `campaignname`, `channel`, `redemption_status`
 
-Format: CSV & Parquet
+---
 
-Schema:
+## 🧪 Data Preparation Workflow
 
-coupon_id, customer_id, coupon_code, discounttype, discount_value, usage_date, order_id, campaignname, channel, redemption_status
-
-🧪 Data Preparation Workflow
-🔹 Step 1: Load with Python
-python
+### 🔹 Step 1: Load with Python (AI Prompting Assisted)
+```python
 from datasets import load_dataset
 import pandas as pd
 
@@ -38,8 +47,6 @@ df.to_csv("C:/Users/User/Documents/coupon_data/coupon_usage.csv", index=False)
 ✅ Saved 200,000 rows to coupon_usage.csv
 
 🔹 Step 2: Clean in Excel (Power Query)
-Opened CSV in Excel using Power Query
-
 Formatted usageDate to proper date type
 
 Renamed column headers using camelCase
@@ -81,29 +88,12 @@ sql
 SELECT channel, COUNT(*) AS totalSent, SUM(statusFlag) AS totalRedeemed,
 ROUND(SUM(statusFlag)/COUNT(*)*100, 2) AS redemptionRatePercent
 FROM coupons GROUP BY channel ORDER BY totalRedeemed DESC;
-✅ Daily Redemption Trend
-sql
-SELECT DATE(usageDate) AS usageDay, COUNT(*) AS totalCoupons, SUM(statusFlag) AS redeemedCount
-FROM coupons GROUP BY usageDay ORDER BY usageDay;
 ✅ Discount Type Analysis
 sql
 SELECT discountType, COUNT(*) AS totalSent, SUM(statusFlag) AS totalRedeemed,
 ROUND(SUM(statusFlag)/COUNT(*)*100, 2) AS redemptionRatePercent,
 ROUND(AVG(discountValue), 2) AS avgDiscountValue
 FROM coupons GROUP BY discountType ORDER BY redemptionRatePercent DESC;
-✅ Top Redeemed Coupons
-sql
-SELECT couponCode, discountType, discountValue, campaignName, channel
-FROM coupons WHERE statusFlag = 1 ORDER BY discountValue DESC LIMIT 10;
-✅ Customer Engagement
-sql
-SELECT customerId, COUNT(*) AS totalCoupons, SUM(statusFlag) AS redeemedCoupons,
-ROUND(SUM(statusFlag)/COUNT(*)*100, 2) AS redemptionRatePercent
-FROM coupons GROUP BY customerId HAVING COUNT(*) > 5 ORDER BY redeemedCoupons DESC LIMIT 10;
-✅ Campaign Discount Value
-sql
-SELECT campaignName, ROUND(SUM(discountValue * statusFlag), 2) AS totalDiscountRedeemed
-FROM coupons GROUP BY campaignName ORDER BY totalDiscountRedeemed DESC;
 📈 Key Insights
 SMS and email channels had highest redemption
 
@@ -112,8 +102,6 @@ Fixed amount discounts outperformed percentage-based ones
 Some campaigns had redemption rates above 70%
 
 A small group of customers redeemed a large number of coupons
-
-Redemption rate varied widely across campaigns (20–32%)
 
 Higher discount tiers (50–60%) drove stronger engagement
 
@@ -142,11 +130,6 @@ To showcase my transition into data science:
 Logistic Regression: Predict redemption likelihood
 
 Decision Trees: Segment customers by behavior
-
-✅ Power BI AI Visuals (Free Account)
-Key Influencers: Identify top drivers of redemption
-
-Decomposition Tree: Drill into campaign/channel impact
 
 🚀 How to Use This Project
 Clone this repo
